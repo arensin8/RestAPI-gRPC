@@ -8,9 +8,9 @@ const ProductSchema = new mongoose.Schema({
 
 ProductSchema.pre("save", async function (next) {
   try {
-    if (!this.isNew) return next(); // Only count for new documents
+    if (!this.isNew) return next(); 
 
-    const count = await this.constructor.countDocuments(); // Correct method
+    const count = await this.constructor.countDocuments(); 
 
     this.set({ id: count + 1 });
     next();
