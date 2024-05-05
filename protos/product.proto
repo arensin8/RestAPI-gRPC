@@ -26,7 +26,7 @@ message Result {
 }
 
 service ProductService {
-    rpc ProductList (Empty) returns (ProductList);
+    rpc productList (Empty) returns (ProductList);
     rpc createProduct (NewProduct) returns (Result);
     rpc getProduct (ProductId) returns (Product);
     rpc updateProduct (Product) returns (Result);

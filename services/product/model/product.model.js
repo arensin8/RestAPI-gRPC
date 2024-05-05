@@ -6,14 +6,17 @@ const ProductSchema = new mongoose.Schema({
   price: { type: String },
 });
 
-ProductSchema.pre("save", function (next) {
-  const self = this;
-  //we are using self for using our model and not the async function
-  self.constructor.count(async function (err, data) {
-    if (err) return next(err);
-    model.set({ id: data + 1 });
+ProductSchema.pre("save", async function (next) {
+  try {
+    if (!this.isNew) return next(); // Only count for new documents
+
+    const count = await this.constructor.countDocuments(); // Correct method
+
+    this.set({ id: count + 1 });
     next();
-  });
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = {
