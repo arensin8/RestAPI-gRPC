@@ -19,7 +19,15 @@ async function createProduct(call, callback) {
   }
 }
 
-async function getProduct(call, callback) {}
+async function getProduct(call, callback) {
+  try {
+    const { id } = call.request;
+    const product = await ProductModel.findOne({ id });
+    callback(null, product);
+  } catch (error) {
+    callback(error, null);
+  }
+}
 
 async function updateProduct(call, callback) {}
 
