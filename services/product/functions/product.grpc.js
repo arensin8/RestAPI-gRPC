@@ -29,7 +29,32 @@ async function getProduct(call, callback) {
   }
 }
 
-async function updateProduct(call, callback) {}
+async function updateProduct(call, callback) {
+  try {
+    const { id, ...updateData } = call.request;
+    if (!id) {
+      return callback({ message: "Invalid update request: Missing ID" }, null);
+    }
+
+    // Check if the document with the given ID exists
+    const existingProduct = await ProductModel.findOne({ id });
+    if (!existingProduct) {
+      return callback({ message: "Product not found" }, null);
+    }
+
+    // Update the fields specified in updateData using Mongoose's $set operator
+    const result = await ProductModel.updateOne({ id }, { $set: updateData });
+
+    if (result.nModified > 0) {
+      return callback(null, { status: "Updated!" });
+    } else {
+      return callback({ message: "No fields modified, update skipped" }, null);
+    }
+  } catch (error) {
+    console.error("Error in updateProduct:", error);
+    callback(error, null);
+  }
+}c
 
 async function deleteProduct(call, callback) {
   try {
