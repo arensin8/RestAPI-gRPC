@@ -24,10 +24,10 @@ message NewBlog{
 
 
 
-service ProductService {
-    rpc productList (PublicPackage.Empty) returns (ProductList);
-    rpc createProduct (NewProduct) returns (Result);
-    rpc getProduct (ProductId) returns (Product);
-    rpc updateProduct (Product) returns (Result);
-    rpc deleteProduct (ProductId) returns (Result);
+service BlogService {
+    rpc blogList (PublicPackage.Empty) returns (BlogList);
+    rpc createBlog (NewBlog) returns (PublicPackage.Result);
+    rpc getBlog (BlogId) returns (Blog);
+    rpc updateBlog (Blog) returns (PublicPackage.Result);
+    rpc deleteBlog (BlogId) returns (PublicPackage.Result);
 }

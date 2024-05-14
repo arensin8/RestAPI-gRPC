@@ -1,5 +1,6 @@
 syntax = 'proto3';
 package ProductPackage;
+import "public.proto";
 
 message Product{
     int32 id = 1;
@@ -23,9 +24,9 @@ message NewProduct{
 
 
 service ProductService {
-    rpc productList (Empty) returns (ProductList);
-    rpc createProduct (NewProduct) returns (Result);
+    rpc productList (PublicPackage.Empty) returns (ProductList);
+    rpc createProduct (NewProduct) returns (PublicPackage.Result);
     rpc getProduct (ProductId) returns (Product);
-    rpc updateProduct (Product) returns (Result);
-    rpc deleteProduct (ProductId) returns (Result);
+    rpc updateProduct (Product) returns (PublicPackage.Result);
+    rpc deleteProduct (ProductId) returns (PublicPackage.Result);
 }
