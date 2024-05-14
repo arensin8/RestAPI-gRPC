@@ -1,29 +1,31 @@
 syntax = 'proto3';
-package ProductPackage;
+package BlogPackage;
 
-message Product{
+import "public.proto";
+
+message Blog{
     int32 id = 1;
     string title = 2;
-    string price = 3;
+    string text = 3;
 }
 
-message ProductId{
+message BlogId{
     int32 id = 1;
 }
 
-message ProductList{
-    repeated Product products = 1;
+message BlogList{
+    repeated Blog blogs = 1;
 }
 
-message NewProduct{
+message NewBlog{
     string title = 1;
-    string price = 2;
+    string text = 2;
 }
 
 
 
 service ProductService {
-    rpc productList (Empty) returns (ProductList);
+    rpc productList (PublicPackage.Empty) returns (ProductList);
     rpc createProduct (NewProduct) returns (Result);
     rpc getProduct (ProductId) returns (Product);
     rpc updateProduct (Product) returns (Result);

@@ -45,7 +45,7 @@ async function updateProduct(call, callback) {
     // Update the fields specified in updateData using Mongoose's $set operator
     const result = await ProductModel.updateOne({ id }, { $set: updateData });
 
-    if (result.nModified > 0) {
+    if (result.modifiedCount > 0) {
       return callback(null, { status: "Updated!" });
     } else {
       return callback({ message: "No fields modified, update skipped" }, null);
@@ -54,7 +54,7 @@ async function updateProduct(call, callback) {
     console.error("Error in updateProduct:", error);
     callback(error, null);
   }
-}c
+}
 
 async function deleteProduct(call, callback) {
   try {
